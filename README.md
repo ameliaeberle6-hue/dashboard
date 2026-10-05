@@ -2,9 +2,7 @@
 
 A personal dashboard that shows current weather from a local JSON file, with a dark/light theme toggle that remembers your choice.
 
-## Live Site
-
-[https://MIA-EBERLE.github.io/YOUR-REPO-NAME/]
+## Live Site (https://ameliaeberle6-hue.github.io/dashboard/)
 
 ## Features
 
@@ -14,4 +12,4 @@ A personal dashboard that shows current weather from a local JSON file, with a d
 
 ## Built With
 
-HTML, CSS (custom properties), and JavaScript
+HTML, CSS , and JavaScript
