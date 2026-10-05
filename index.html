@@ -9,13 +9,19 @@
 <body>
     <header>
         <h1>DASHBOARD</h1>
+        <button type="button" id="theme-toggle">Toggle dark mode</button>
     </header>
 
     <main>
         <section id="weather-display" class="widget" aria-live="polite"></section>
+
+        <section class="widget">
+            <h2>Quote</h2>
+            <div id="quotes-display">Loading quotes…</div>
+            <button type="button" id="new-quote-btn" disabled>New quote</button>
+        </section>
     </main>
 
     <script src="js/app.js" defer></script>
 </body>
 </html>
-
