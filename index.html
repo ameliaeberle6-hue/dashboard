@@ -3,21 +3,22 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>DASHBOARD</title>
+    <meta name="description" content="A personal dashboard with current weather, daily quotes, and a theme toggle.">
+    <title>Dashboard</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
 <body>
     <header>
-        <h1>DASHBOARD</h1>
+        <h1>Dashboard</h1>
         <button type="button" id="theme-toggle">Toggle dark mode</button>
     </header>
 
-    <main>
-        <section id="weather-display" class="widget" aria-live="polite"></section>
+    <main aria-label="Dashboard widgets">
+        <section id="weather-display" class="widget" aria-label="Current weather" aria-live="polite"></section>
 
-        <section class="widget">
-            <h2>Quote</h2>
-            <div id="quotes-display">Loading quotes…</div>
+        <section class="widget" aria-labelledby="quote-heading">
+            <h2 id="quote-heading">Quote</h2>
+            <div id="quotes-display" aria-live="polite">Loading quotes…</div>
             <button type="button" id="new-quote-btn" disabled>New quote</button>
         </section>
     </main>
