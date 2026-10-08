@@ -1,3 +1,4 @@
+// Weather widget
 function loadWeather() {
     fetch('./data/weather.json')
         .then(response => response.json())
@@ -23,6 +24,7 @@ function displayWeatherError() {
         `<p class="widget-error">Weather data is unavailable right now.</p>`;
 }
 
+// Quotes widget
 let allQuotes = [];
 let currentQuoteIndex = -1;
 const quoteButton = document.getElementById('new-quote-btn');
@@ -69,6 +71,105 @@ function displayQuotesError() {
 
 quoteButton.addEventListener('click', displayRandomQuote);
 
+// Tasks widget
+function loadTasks() {
+    const tasksJSON = localStorage.getItem('dashboardTasks');
+    return tasksJSON ? JSON.parse(tasksJSON) : [];
+}
+
+function saveTasks(tasks) {
+    localStorage.setItem('dashboardTasks', JSON.stringify(tasks));
+}
+
+function displayTasks() {
+    const tasks = loadTasks();
+    const completed = tasks.filter(task => task.completed).length;
+    const pending = tasks.filter(task => !task.completed).length;
+    const completionPercentage = tasks.length === 0
+        ? 0
+        : Math.round((completed / tasks.length) * 100);
+    const stats = document.getElementById('task-stats');
+    const taskList = document.getElementById('tasks-list');
+
+    stats.textContent = `Total: ${tasks.length} · Completed: ${completed} · Pending: ${pending} · ${completionPercentage}% complete`;
+    taskList.replaceChildren();
+
+    if (tasks.length === 0) {
+        const emptyMessage = document.createElement('li');
+        emptyMessage.className = 'empty-tasks';
+        emptyMessage.textContent = 'No tasks yet. Add one above.';
+        taskList.appendChild(emptyMessage);
+        return;
+    }
+
+    tasks.forEach((task, index) => {
+        const item = document.createElement('li');
+        item.className = 'task-item';
+
+        const label = document.createElement('label');
+        label.className = 'task-label';
+        if (task.completed) {
+            label.classList.add('task-completed');
+        }
+
+        const checkbox = document.createElement('input');
+        checkbox.type = 'checkbox';
+        checkbox.checked = task.completed;
+        checkbox.addEventListener('change', () => toggleTask(index));
+
+        const taskText = document.createElement('span');
+        taskText.textContent = task.text;
+
+        const deleteButton = document.createElement('button');
+        deleteButton.type = 'button';
+        deleteButton.className = 'delete-task';
+        deleteButton.textContent = 'Delete';
+        deleteButton.setAttribute('aria-label', `Delete task: ${task.text}`);
+        deleteButton.addEventListener('click', () => deleteTask(index));
+
+        label.append(checkbox, taskText);
+        item.append(label, deleteButton);
+        taskList.appendChild(item);
+    });
+}
+
+function addTask(taskText) {
+    const tasks = loadTasks();
+    tasks.push({ text: taskText, completed: false, id: Date.now() });
+    saveTasks(tasks);
+    displayTasks();
+}
+
+function toggleTask(index) {
+    const tasks = loadTasks();
+    tasks[index].completed = !tasks[index].completed;
+    saveTasks(tasks);
+    displayTasks();
+}
+
+function deleteTask(index) {
+    const tasks = loadTasks();
+    if (confirm(`Delete task: "${tasks[index].text}"?`)) {
+        tasks.splice(index, 1);
+        saveTasks(tasks);
+        displayTasks();
+    }
+}
+
+document.getElementById('task-form').addEventListener('submit', event => {
+    event.preventDefault();
+    const taskInput = document.getElementById('task-input');
+    const taskText = taskInput.value.trim();
+    if (taskText) {
+        addTask(taskText);
+        taskInput.value = '';
+        taskInput.focus();
+    }
+});
+
+displayTasks();
+
+// Theme
 function initializeTheme() {
     if (localStorage.getItem('dashboardTheme') === 'dark') {
         document.body.classList.add('theme-dark');

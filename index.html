@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="A personal dashboard with current weather, daily quotes, and a theme toggle.">
+    <meta name="description" content="A personal dashboard with weather, quotes, tasks, and a theme toggle.">
     <title>Dashboard</title>
     <link rel="stylesheet" href="css/styles.css">
 </head>
@@ -13,13 +13,24 @@
         <button type="button" id="theme-toggle">Toggle dark mode</button>
     </header>
 
-    <main aria-label="Dashboard widgets">
+    <main class="dashboard" aria-label="Dashboard widgets">
         <section id="weather-display" class="widget" aria-label="Current weather" aria-live="polite"></section>
 
         <section class="widget" aria-labelledby="quote-heading">
             <h2 id="quote-heading">Quote</h2>
             <div id="quotes-display" aria-live="polite">Loading quotes…</div>
             <button type="button" id="new-quote-btn" disabled>New quote</button>
+        </section>
+
+        <section class="widget tasks-widget" aria-labelledby="tasks-heading">
+            <h2 id="tasks-heading">Tasks</h2>
+            <div id="task-stats" class="task-stats" aria-live="polite"></div>
+            <form id="task-form" class="task-form">
+                <label class="visually-hidden" for="task-input">New task</label>
+                <input id="task-input" name="task" type="text" placeholder="Add a task…" required>
+                <button type="submit">Add</button>
+            </form>
+            <ul id="tasks-list" class="tasks-list" aria-label="Your tasks"></ul>
         </section>
     </main>
 
