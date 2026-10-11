@@ -75,7 +75,7 @@ header {
     text-align: center;
 }
 
-main.dashboard {
+.dashboard {
     width: 100%;
     max-width: 1200px;
     margin: 0 auto;
@@ -265,7 +265,7 @@ button:disabled {
 button.delete-task {
     flex: 0 0 auto;
     padding: 0.25rem 0.5rem;
-    background: transparent;
+    background: var(--color-surface);
     color: var(--color-danger);
 }
 
@@ -292,13 +292,13 @@ button.delete-task:hover {
 }
 
 @media (max-width: 768px) {
-    main.dashboard {
+    .dashboard {
         grid-template-columns: 1fr;
     }
 }
 
 @media (min-width: 769px) and (max-width: 1024px) {
-    main.dashboard {
+    .dashboard {
         grid-template-columns: repeat(2, 1fr);
     }
 }
